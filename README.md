@@ -1,2 +1,3 @@
 # CoLuaNgo
-Trò chơi cờ lúa ngô dân gian Việt Nam
+
+Trò chơi cờ lúa ngô dân gian Việt Nam.
