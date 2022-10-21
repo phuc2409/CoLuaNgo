@@ -20,7 +20,7 @@ class GameActivity : BaseActivity() {
 
     override fun initView() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.layoutChessBoard, ChessBoardFragment()).addToBackStack(null).commit()
+            .replace(R.id.layoutChessBoard, ChessBoardFragment()).commit()
     }
 
     override fun handleListener() {

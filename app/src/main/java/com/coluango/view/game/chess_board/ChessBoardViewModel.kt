@@ -32,6 +32,11 @@ class ChessBoardViewModel : BaseViewModel() {
 
         selectedRow = row
         selectedColumn = column
+
+        if (!chestBoardItem.canMove(row, column)) {
+            return
+        }
+
         val canMoveTo = chestBoardItem.selectNode(row, column)
         _state.value = ChessBoardState.canMoveTo(canMoveTo)
     }

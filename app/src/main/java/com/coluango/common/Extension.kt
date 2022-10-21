@@ -1,6 +1,8 @@
 package com.coluango.common
 
 import android.view.View
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 /**
  * User: Quang Phúc
@@ -13,4 +15,11 @@ fun View.show() {
 
 fun View.hide() {
     this.visibility = View.GONE
+}
+
+fun Any?.toJson(): String = Gson().toJson(this)
+
+fun <T : Any?> fromJson(json: String): T {
+    val type = object : TypeToken<T>() {}.type
+    return Gson().fromJson(json, type)
 }
