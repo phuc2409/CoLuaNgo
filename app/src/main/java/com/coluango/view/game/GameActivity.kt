@@ -16,15 +16,22 @@ class GameActivity : BaseActivity() {
         setContentView(binding.root)
 
         initView()
+        handleListener()
     }
 
     override fun initView() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.layoutChessBoard, ChessBoardFragment()).commit()
+        newGame()
     }
 
     override fun handleListener() {
+        binding.tvNewGame.setOnClickListener {
+            newGame()
+        }
+    }
 
+    private fun newGame() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.layoutChessBoard, ChessBoardFragment()).commit()
     }
 
     override fun observeViewModel() {
