@@ -9,7 +9,7 @@ class ChessBoardState(val status: Status, val data: Any? = null) {
 
     companion object {
 
-        fun drawChessBoard(nodes: Array<Array<Int>>) =
+        fun drawChessBoard(nodes: ArrayList<ArrayList<Int>>) =
             ChessBoardState(Status.DRAW_CHESS_BOARD, nodes)
 
         fun highlightSelectedNode(positionItem: PositionItem) =

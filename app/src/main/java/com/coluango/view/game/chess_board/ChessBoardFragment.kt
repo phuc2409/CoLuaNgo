@@ -94,7 +94,7 @@ class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
         viewModel.state.observe(viewLifecycleOwner) {
             when (it.status) {
                 ChessBoardState.Status.DRAW_CHESS_BOARD -> {
-                    val nodes = it.data as Array<Array<Int>>
+                    val nodes = it.data as ArrayList<ArrayList<Int>>
                     drawChessBoard(nodes)
                 }
 
@@ -127,7 +127,7 @@ class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
         }
     }
 
-    private fun drawChessBoard(nodes: Array<Array<Int>>) {
+    private fun drawChessBoard(nodes: ArrayList<ArrayList<Int>>) {
         for (i in 1..4) {
             for (j in 1..4) {
                 if (nodes[i][j] == -1 || nodes[i][j] == 0) {

@@ -37,7 +37,7 @@ class ChessBoardViewModel : BaseViewModel() {
             return
         }
 
-        val canMoveTo = chestBoardItem.selectNode(row, column)
+        val canMoveTo = chestBoardItem.selectNode(chestBoardItem.nodes, row, column)
         _state.value = ChessBoardState.canMoveTo(canMoveTo)
     }
 
@@ -49,6 +49,7 @@ class ChessBoardViewModel : BaseViewModel() {
         if (turn == 1) {
             _state.value = ChessBoardState.showAlly(PositionItem(toRow, toColumn))
             turn = 2
+            chestBoardItem.cal()
         } else if (turn == 2) {
             _state.value = ChessBoardState.showEnemy(PositionItem(toRow, toColumn))
             turn = 1

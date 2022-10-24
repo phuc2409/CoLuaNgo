@@ -23,3 +23,9 @@ fun <T : Any?> fromJson(json: String): T {
     val type = object : TypeToken<T>() {}.type
     return Gson().fromJson(json, type)
 }
+
+fun <T : Any?> copy(obj: T): T {
+    val json = obj.toJson()
+    val type = object : TypeToken<T>() {}.type
+    return Gson().fromJson(json, type)
+}
