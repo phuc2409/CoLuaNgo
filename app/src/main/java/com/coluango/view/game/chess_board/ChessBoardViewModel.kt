@@ -18,6 +18,11 @@ class ChessBoardViewModel : BaseViewModel() {
 
     private val chestBoardItem = ChestBoardItem()
 
+    var numberOfPlayers = 1
+
+    /**
+     * 1: lượt người chơi, 2: lượt AI
+     */
     private var turn = 1
 
     /**
@@ -61,7 +66,9 @@ class ChessBoardViewModel : BaseViewModel() {
                 _state.value = ChessBoardState.showGreenWin()
             } else {
                 _state.value = ChessBoardState.showRedTurn()
-                aiMove()
+                if (numberOfPlayers == 1) {
+                    aiMove()
+                }
             }
         } else if (turn == 2) {
             _state.value = ChessBoardState.showEnemy(PositionItem(toRow, toColumn))

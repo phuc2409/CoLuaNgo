@@ -12,7 +12,8 @@ import com.coluango.databinding.FragmentChessBoardBinding
 import com.coluango.databinding.ItemNodeBinding
 import com.coluango.view.game.chess_board.item.PositionItem
 
-class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
+class ChessBoardFragment(private val numberOfPlayers: Int) :
+    BaseFragment(R.layout.fragment_chess_board) {
 
     private val binding by viewBinding(FragmentChessBoardBinding::bind)
     private val viewModel: ChessBoardViewModel by viewModels()
@@ -26,6 +27,7 @@ class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
         handleListener()
         observeViewModel()
 
+        viewModel.numberOfPlayers = numberOfPlayers
         viewModel.drawBoard()
     }
 
