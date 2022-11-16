@@ -4,6 +4,15 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        'release' {
+            storeFile file('release-keystore.jks')
+            storePassword 'Vietnam1'
+            keyAlias 'key0'
+            keyPassword 'Vietnam1'
+        }
+    }
+
     namespace 'com.coluango'
     compileSdk 33
     buildToolsVersion '33.0.0'
@@ -16,11 +25,14 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        signingConfig signingConfigs.'release'
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
