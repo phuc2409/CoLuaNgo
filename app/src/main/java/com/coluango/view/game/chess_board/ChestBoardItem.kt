@@ -2,6 +2,7 @@ package com.coluango.view.game.chess_board
 
 import android.util.Log
 import com.coluango.common.copy
+import com.coluango.view.game.chess_board.item.AiMoveItem
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.max
@@ -107,7 +108,7 @@ class ChestBoardItem {
         return false
     }
 
-    fun canMove(nodes: ArrayList<ArrayList<Int>>, row: Int, column: Int): Boolean {
+    private fun canMove(nodes: ArrayList<ArrayList<Int>>, row: Int, column: Int): Boolean {
         for (i in directions) {
             if (nodes[row + i[0]][column + i[1]].toInt() == 0) {
                 return true
@@ -133,23 +134,6 @@ class ChestBoardItem {
     /**
      * Hàm đánh giá nước đi
      */
-    private fun getPointOfMove(turn: Int, toRow: Int, toColumn: Int): Int {
-        if (nodes[toRow][toColumn] == -1 || nodes[toRow][toColumn] == turn) {
-            return INVALID_MOVE_POINT
-        }
-
-        if (nodes[toRow][toColumn] == 0) {
-            return NORMAL_MOVE_POINT
-        }
-
-        if (nodes[toRow][toColumn] != turn) {
-            if (isWinning(turn)) {
-                return WIN_MOVE_POINT
-            }
-        }
-        return EAT_MOVE_POINT
-    }
-
     private fun getPointOfMove(nodes: ArrayList<ArrayList<Int>>, turn: Int): Int {
         var count1 = 0
         var count2 = 0
@@ -182,7 +166,31 @@ class ChestBoardItem {
         return count2 - count1
     }
 
-    private fun getAiMove(): ArrayList<MoveItem?> {
+    private fun getAllAiMoves(): ArrayList<MoveItem> {
+        val nodes = copy(this.nodes)
+        val turn = 2
+        val tree = ArrayList<MoveItem>()
+
+        for (i in 1..4) {
+            for (j in 1..4) {
+                if (nodes[i][j].toInt() == turn && canMove(nodes, i, j)) {
+                    val moves = selectNode(nodes, i, j)
+                    for (k in moves) {
+                        val newNodes = copy(nodes)
+                        newNodes[k.row][k.column] = turn
+                        newNodes[i][j] = 0
+
+                        val point = getPointOfMove(newNodes, turn)
+
+                        tree.add(MoveItem(newNodes, i, j, k.row, k.column, point))
+                    }
+                }
+            }
+        }
+        return tree
+    }
+
+    private fun getAllAiMovesAlphaBeta(): ArrayList<MoveItem?> {
         val nodes = copy(this.nodes)
         var turn = 2
         var depth = 0
@@ -340,8 +348,11 @@ class ChestBoardItem {
         }
     }
 
-    fun cal() {
-        val tree = getAiMove()
+    /**
+     * Tìm nước đi cho AI bằng thuật toán minimax với cắt tỉa alpha beta
+     */
+    fun findAiMoveByMinimaxWithAlphaBeta() {
+        val tree = getAllAiMovesAlphaBeta()
         val tree2 = ArrayList<MoveItem?>()
         var pos = 0
 
@@ -366,5 +377,45 @@ class ChestBoardItem {
         val x = minimax(0, 0, true, tree2, MIN, MAX)
         Log.i(TAG, "alpha beta: $x")
         Log.i(TAG, "tree2: ${tree2[x.pos]}")
+    }
+
+    /**
+     * Tìm nước đi cho AI bằng thuật toán dầu loang
+     */
+    fun getAiMove(): AiMoveItem {
+        val moves = getAllAiMoves()
+        moves.sortByDescending {
+            it.point
+        }
+
+        var maxPoint = LOSE_MOVE_POINT
+        var pos = 0
+
+        for (i in 0 until moves.size) {
+            // Chọn ngẫu nhiên một nước đi có điểm cao nhất
+            if (moves[i].point >= maxPoint && (0..1).random() == 1) {
+                maxPoint = moves[i].point
+                pos = i
+            } else {
+                break
+            }
+        }
+        return AiMoveItem(
+            moves[pos].fromRow,
+            moves[pos].fromColumn,
+            moves[pos].toRow,
+            moves[pos].toColumn
+        )
+    }
+
+    fun getAiFirstMove(): AiMoveItem {
+        if (getPointOfMove(this.nodes, 2) < 0) {
+            if (nodes[2][2] != 2) {
+                return AiMoveItem(2, 3, 3, 3)
+            } else if (nodes[2][3] != 2) {
+                return AiMoveItem(2, 2, 3, 2)
+            }
+        }
+        return getAiMove()
     }
 }

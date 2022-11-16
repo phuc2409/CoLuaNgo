@@ -17,6 +17,12 @@ class ChessBoardViewModel : BaseViewModel() {
     private val chestBoardItem = ChestBoardItem()
 
     private var turn = 1
+
+    /**
+     * Đếm số nước đi của máy
+     */
+    private var aiMoveCount = 0
+
     private var selectedRow = 0
     private var selectedColumn = 0
 
@@ -49,10 +55,26 @@ class ChessBoardViewModel : BaseViewModel() {
         if (turn == 1) {
             _state.value = ChessBoardState.showAlly(PositionItem(toRow, toColumn))
             turn = 2
-            chestBoardItem.cal()
+            if (chestBoardItem.isWinning(1)) {
+
+            } else {
+                aiMove()
+            }
         } else if (turn == 2) {
             _state.value = ChessBoardState.showEnemy(PositionItem(toRow, toColumn))
             turn = 1
         }
+    }
+
+    private fun aiMove() {
+        val aiMoveItem = if (aiMoveCount == 0) {
+            chestBoardItem.getAiFirstMove()
+        } else {
+            chestBoardItem.getAiMove()
+        }
+        aiMoveCount++
+        selectedRow = aiMoveItem.fromRow
+        selectedColumn = aiMoveItem.fromColumn
+        moveTo(aiMoveItem.toRow, aiMoveItem.toColumn)
     }
 }
