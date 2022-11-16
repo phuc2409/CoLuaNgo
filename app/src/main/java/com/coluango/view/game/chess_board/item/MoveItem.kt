@@ -1,4 +1,4 @@
-package com.coluango.view.game.chess_board
+package com.coluango.view.game.chess_board.item
 
 /**
  * User: Quang Phúc

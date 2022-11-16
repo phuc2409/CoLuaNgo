@@ -10,6 +10,7 @@ import com.coluango.common.show
 import com.coluango.common.viewBinding
 import com.coluango.databinding.FragmentChessBoardBinding
 import com.coluango.databinding.ItemNodeBinding
+import com.coluango.view.game.chess_board.item.PositionItem
 
 class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
 

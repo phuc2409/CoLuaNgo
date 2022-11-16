@@ -1,5 +1,7 @@
 package com.coluango.view.game.chess_board
 
+import com.coluango.view.game.chess_board.item.PositionItem
+
 /**
  * User: Quang Phúc
  * Date: 20-Oct-22

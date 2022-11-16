@@ -3,6 +3,8 @@ package com.coluango.view.game.chess_board
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.coluango.base.BaseViewModel
+import com.coluango.view.game.chess_board.item.ChestBoardItem
+import com.coluango.view.game.chess_board.item.PositionItem
 
 /**
  * User: Quang Phúc

@@ -1,8 +1,7 @@
-package com.coluango.view.game.chess_board
+package com.coluango.view.game.chess_board.item
 
 import android.util.Log
 import com.coluango.common.copy
-import com.coluango.view.game.chess_board.item.AiMoveItem
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.max
