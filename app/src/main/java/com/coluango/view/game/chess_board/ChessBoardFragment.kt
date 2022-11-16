@@ -123,6 +123,22 @@ class ChessBoardFragment : BaseFragment(R.layout.fragment_chess_board) {
                     val positionItem = it.data as PositionItem
                     showEnemy(nodeLayouts[positionItem.row][positionItem.column])
                 }
+
+                ChessBoardState.Status.SHOW_GREEN_TURN -> {
+                    binding.tvStatus.text = getString(R.string.green_turn)
+                }
+
+                ChessBoardState.Status.SHOW_RED_TURN -> {
+                    binding.tvStatus.text = getString(R.string.red_turn)
+                }
+
+                ChessBoardState.Status.SHOW_GREEN_WIN -> {
+                    binding.tvStatus.text = getString(R.string.green_win)
+                }
+
+                ChessBoardState.Status.SHOW_RED_WIN -> {
+                    binding.tvStatus.text = getString(R.string.red_win)
+                }
             }
         }
     }

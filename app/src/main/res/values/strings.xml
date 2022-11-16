@@ -3,4 +3,9 @@
 
     <string name="image">Image</string>
     <string name="new_game">New game</string>
+
+    <string name="green_turn">Lượt xanh</string>
+    <string name="red_turn">Lượt đỏ</string>
+    <string name="green_win">Xanh thắng</string>
+    <string name="red_win">Đỏ thắng</string>
 </resources>

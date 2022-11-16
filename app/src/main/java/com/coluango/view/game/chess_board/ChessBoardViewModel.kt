@@ -56,13 +56,19 @@ class ChessBoardViewModel : BaseViewModel() {
             _state.value = ChessBoardState.showAlly(PositionItem(toRow, toColumn))
             turn = 2
             if (chestBoardItem.isWinning(1)) {
-
+                _state.value = ChessBoardState.showGreenWin()
             } else {
+                _state.value = ChessBoardState.showRedTurn()
                 aiMove()
             }
         } else if (turn == 2) {
             _state.value = ChessBoardState.showEnemy(PositionItem(toRow, toColumn))
             turn = 1
+            if (chestBoardItem.isWinning(2)) {
+                _state.value = ChessBoardState.showRedWin()
+            } else {
+                _state.value = ChessBoardState.showGreenTurn()
+            }
         }
     }
 

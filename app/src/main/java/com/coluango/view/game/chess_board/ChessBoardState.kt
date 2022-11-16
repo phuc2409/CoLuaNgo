@@ -23,6 +23,14 @@ class ChessBoardState(val status: Status, val data: Any? = null) {
         fun showAlly(positionItem: PositionItem) = ChessBoardState(Status.SHOW_ALLY, positionItem)
 
         fun showEnemy(positionItem: PositionItem) = ChessBoardState(Status.SHOW_ENEMY, positionItem)
+
+        fun showGreenTurn() = ChessBoardState(Status.SHOW_GREEN_TURN)
+
+        fun showRedTurn() = ChessBoardState(Status.SHOW_RED_TURN)
+
+        fun showGreenWin() = ChessBoardState(Status.SHOW_GREEN_WIN)
+
+        fun showRedWin() = ChessBoardState(Status.SHOW_RED_WIN)
     }
 
     enum class Status {
@@ -31,6 +39,10 @@ class ChessBoardState(val status: Status, val data: Any? = null) {
         CAN_MOVE_TO,
         HIDE_NODE,
         SHOW_ALLY,
-        SHOW_ENEMY
+        SHOW_ENEMY,
+        SHOW_GREEN_TURN,
+        SHOW_RED_TURN,
+        SHOW_GREEN_WIN,
+        SHOW_RED_WIN
     }
 }
